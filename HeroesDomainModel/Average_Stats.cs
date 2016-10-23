@@ -12,21 +12,21 @@ namespace HeroesDomainModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Build
+    public partial class Average_Stats
     {
-        public Build()
+        public Average_Stats()
         {
-            this.Talent_Build = new HashSet<Talent_Build>();
-            this.Talent = new HashSet<Talent>();
+            this.Stats = new HashSet<Stats>();
         }
     
         public int id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
+        public float average_hero_damage { get; set; }
+        public float average_siege_damage { get; set; }
+        public float average_role { get; set; }
+        public float average_xp_contribution { get; set; }
+        public int number_of_games { get; set; }
         public int hero_id { get; set; }
     
-        public virtual Hero Hero { get; set; }
-        public virtual ICollection<Talent_Build> Talent_Build { get; set; }
-        public virtual ICollection<Talent> Talent { get; set; }
+        public virtual ICollection<Stats> Stats { get; set; }
     }
 }

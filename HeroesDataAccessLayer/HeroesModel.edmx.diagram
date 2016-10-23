@@ -5,29 +5,31 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="cfee9ed310264d1c8f5126bd2b6f410c" Name="Diagram1">
-        <EntityTypeShape EntityType="HeroesDBModel.Ability" Width="1.5" PointX="5.25" PointY="5.875" />
-        <EntityTypeShape EntityType="HeroesDBModel.Ability_Effect" Width="1.5" PointX="10.5" PointY="8.25" />
-        <EntityTypeShape EntityType="HeroesDBModel.Build" Width="1.5" PointX="5.25" PointY="2.875" />
-        <EntityTypeShape EntityType="HeroesDBModel.Comment" Width="1.5" PointX="5.25" PointY="14.5" />
-        <EntityTypeShape EntityType="HeroesDBModel.Effect" Width="1.5" PointX="8.25" PointY="9.5" />
-        <EntityTypeShape EntityType="HeroesDBModel.Hero" Width="1.5" PointX="3" PointY="7.25" />
-        <EntityTypeShape EntityType="HeroesDBModel.Role" Width="1.5" PointX="0.75" PointY="8.875" />
-        <EntityTypeShape EntityType="HeroesDBModel.Stats" Width="1.5" PointX="5.25" PointY="9.5" />
-        <EntityTypeShape EntityType="HeroesDBModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="HeroesDBModel.Talent" Width="1.5" PointX="7.5" PointY="6" />
-        <EntityTypeShape EntityType="HeroesDBModel.Talent_Build" Width="1.5" PointX="9.75" PointY="4.75" />
-        <EntityTypeShape EntityType="HeroesDBModel.Universum" Width="1.5" PointX="0.75" PointY="5.875" />
+        <EntityTypeShape EntityType="HeroesDBModel.Ability" Width="1.5" PointX="5.25" PointY="12.375" />
+        <EntityTypeShape EntityType="HeroesDBModel.Ability_Effect" Width="1.5" PointX="7.5" PointY="12.5" />
+        <EntityTypeShape EntityType="HeroesDBModel.Average_Stats" Width="1.5" PointX="3" PointY="2.75" />
+        <EntityTypeShape EntityType="HeroesDBModel.Build" Width="1.5" PointX="7.5" PointY="9.5" />
+        <EntityTypeShape EntityType="HeroesDBModel.Comment" Width="1.5" PointX="5.25" PointY="15.625" />
+        <EntityTypeShape EntityType="HeroesDBModel.Effect" Width="1.5" PointX="5.25" PointY="19.25" />
+        <EntityTypeShape EntityType="HeroesDBModel.Hero" Width="1.5" PointX="3" PointY="6.125" />
+        <EntityTypeShape EntityType="HeroesDBModel.Role" Width="1.5" PointX="0.75" PointY="7.625" />
+        <EntityTypeShape EntityType="HeroesDBModel.Stats" Width="1.5" PointX="5.25" PointY="3.375" />
+        <EntityTypeShape EntityType="HeroesDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="HeroesDBModel.Talent" Width="1.5" PointX="5.25" PointY="9.125" />
+        <EntityTypeShape EntityType="HeroesDBModel.Universum" Width="1.5" PointX="0.75" PointY="4.625" />
+        <EntityTypeShape EntityType="HeroesDBModel.User" Width="1.5" PointX="3" PointY="12.125" />
         <AssociationConnector Association="HeroesDBModel.FK_Ability_Effect_Ability" />
         <AssociationConnector Association="HeroesDBModel.FK_Ability_Hero" />
-        <AssociationConnector Association="HeroesDBModel.FK_Talent_Ability" />
         <AssociationConnector Association="HeroesDBModel.FK_Ability_Effect_Effect" />
-        <AssociationConnector Association="HeroesDBModel.FK_Build_Hero" />
-        <AssociationConnector Association="HeroesDBModel.FK_Talent_Tree_Build" />
+        <AssociationConnector Association="HeroesDBModel.FK_Ability_Effect_Talent" />
+        <AssociationConnector Association="HeroesDBModel.FK_Stats_Average_Stats" />
         <AssociationConnector Association="HeroesDBModel.FK_Comment_Hero" />
         <AssociationConnector Association="HeroesDBModel.FK_Hero_Role" />
         <AssociationConnector Association="HeroesDBModel.FK_Hero_Universum" />
         <AssociationConnector Association="HeroesDBModel.FK_Stats_Hero" />
-        <AssociationConnector Association="HeroesDBModel.FK_Talent_Build_Talent" />
+        <AssociationConnector Association="HeroesDBModel.FK_Talent_Hero" />
+        <AssociationConnector Association="HeroesDBModel.FK_Stats_User" />
+        <AssociationConnector Association="HeroesDBModel.Talent_Build" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,21 +12,18 @@ namespace HeroesDomainModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Build
+    public partial class User
     {
-        public Build()
+        public User()
         {
-            this.Talent_Build = new HashSet<Talent_Build>();
-            this.Talent = new HashSet<Talent>();
+            this.Stats = new HashSet<Stats>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
-        public string description { get; set; }
-        public int hero_id { get; set; }
+        public string password { get; set; }
+        public bool admin_permission { get; set; }
     
-        public virtual Hero Hero { get; set; }
-        public virtual ICollection<Talent_Build> Talent_Build { get; set; }
-        public virtual ICollection<Talent> Talent { get; set; }
+        public virtual ICollection<Stats> Stats { get; set; }
     }
 }

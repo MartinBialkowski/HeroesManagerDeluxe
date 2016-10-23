@@ -17,6 +17,8 @@ namespace HeroesDomainModel
         public Talent()
         {
             this.Talent_Build = new HashSet<Talent_Build>();
+            this.Ability_Effect = new HashSet<Ability_Effect>();
+            this.Build = new HashSet<Build>();
         }
     
         public int id { get; set; }
@@ -25,8 +27,12 @@ namespace HeroesDomainModel
         public int lvl { get; set; }
         public int ability_id { get; set; }
         public int build_id { get; set; }
+        public int hero_id { get; set; }
     
         public virtual Ability Ability { get; set; }
         public virtual ICollection<Talent_Build> Talent_Build { get; set; }
+        public virtual ICollection<Ability_Effect> Ability_Effect { get; set; }
+        public virtual Hero Hero { get; set; }
+        public virtual ICollection<Build> Build { get; set; }
     }
 }

@@ -12,20 +12,34 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="base_dmg" Type="real" Nullable="false" />
           <Property Name="xp_coefficient" Type="real" Nullable="false" />
           <Property Name="hero_id" Type="int" Nullable="false" />
           <Property Name="usage" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Ability_Effect">
           <Key>
-            <PropertyRef Name="ability_id" />
-            <PropertyRef Name="effect_id" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="ability_id" Type="int" Nullable="false" />
           <Property Name="effect_id" Type="int" Nullable="false" />
-          <Property Name="value" Type="int" Nullable="false" />
-          <Property Name="time" Type="int" Nullable="false" />
+          <Property Name="talent_id" Type="int" />
+          <Property Name="value" Type="real" Nullable="false" />
+          <Property Name="time" Type="real" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="talented_value" Type="real" Nullable="false" />
+          <Property Name="talented_time" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Average_Stats">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="average_hero_damage" Type="real" Nullable="false" />
+          <Property Name="average_siege_damage" Type="real" Nullable="false" />
+          <Property Name="average_role" Type="real" Nullable="false" />
+          <Property Name="average_xp_contribution" Type="real" Nullable="false" />
+          <Property Name="number_of_games" Type="int" Nullable="false" />
+          <Property Name="hero_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Build">
           <Key>
@@ -34,7 +48,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="nvarchar(max)" />
-          <Property Name="hero_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -80,22 +93,19 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="average_stats_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
           <Property Name="hero_id" Type="int" Nullable="false" />
           <Property Name="hero_damage" Type="int" Nullable="false" />
           <Property Name="siege_damage" Type="int" Nullable="false" />
           <Property Name="role" Type="int" Nullable="false" />
           <Property Name="xp_contribution" Type="int" Nullable="false" />
-          <Property Name="average_hero_damage" Type="int" Nullable="false" />
-          <Property Name="average_siege_damage" Type="int" Nullable="false" />
-          <Property Name="average_role" Type="int" Nullable="false" />
-          <Property Name="average_xp_contribution" Type="int" Nullable="false" />
-          <Property Name="player_average_hero_damage" Type="int" Nullable="false" />
-          <Property Name="player_average_siege_damage" Type="int" Nullable="false" />
-          <Property Name="player_average_role" Type="int" Nullable="false" />
-          <Property Name="player_average_xp_contribution" Type="int" Nullable="false" />
+          <Property Name="player_average_hero_damage" Type="real" Nullable="false" />
+          <Property Name="player_average_siege_damage" Type="real" Nullable="false" />
+          <Property Name="player_average_role" Type="real" Nullable="false" />
+          <Property Name="player_average_xp_contribution" Type="real" Nullable="false" />
           <Property Name="number_of_games" Type="int" Nullable="false" />
-          <Property Name="number_of_occurrence" Type="int" Nullable="false" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -115,17 +125,15 @@
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="lvl" Type="int" Nullable="false" />
-          <Property Name="ability_id" Type="int" Nullable="false" />
-          <Property Name="build_id" Type="int" Nullable="false" />
+          <Property Name="hero_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Talent_Build">
           <Key>
             <PropertyRef Name="build_id" />
-            <PropertyRef Name="Talent_id" />
+            <PropertyRef Name="talent_id" />
           </Key>
           <Property Name="build_id" Type="int" Nullable="false" />
-          <Property Name="Talent_id" Type="int" Nullable="false" />
-          <Property Name="is_selected" Type="bit" Nullable="false" />
+          <Property Name="talent_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Universum">
           <Key>
@@ -133,6 +141,15 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="admin_permission" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Ability_Effect_Ability">
           <End Role="Ability" Type="Self.Ability" Multiplicity="1" />
@@ -158,6 +175,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Ability_Effect_Talent">
+          <End Role="Talent" Type="Self.Talent" Multiplicity="0..1" />
+          <End Role="Ability_Effect" Type="Self.Ability_Effect" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Talent">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ability_Effect">
+              <PropertyRef Name="talent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Ability_Hero">
           <End Role="Hero" Type="Self.Hero" Multiplicity="1" />
           <End Role="Ability" Type="Self.Ability" Multiplicity="*" />
@@ -166,18 +195,6 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Ability">
-              <PropertyRef Name="hero_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Build_Hero">
-          <End Role="Hero" Type="Self.Hero" Multiplicity="1" />
-          <End Role="Build" Type="Self.Build" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Hero">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Build">
               <PropertyRef Name="hero_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -218,6 +235,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Stats_Average_Stats">
+          <End Role="Average_Stats" Type="Self.Average_Stats" Multiplicity="1" />
+          <End Role="Stats" Type="Self.Stats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Average_Stats">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Stats">
+              <PropertyRef Name="average_stats_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Stats_Hero">
           <End Role="Hero" Type="Self.Hero" Multiplicity="1" />
           <End Role="Stats" Type="Self.Stats" Multiplicity="*" />
@@ -230,15 +259,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Talent_Ability">
-          <End Role="Ability" Type="Self.Ability" Multiplicity="1" />
-          <End Role="Talent" Type="Self.Talent" Multiplicity="*" />
+        <Association Name="FK_Stats_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Stats" Type="Self.Stats" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Ability">
+            <Principal Role="User">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Talent">
-              <PropertyRef Name="ability_id" />
+            <Dependent Role="Stats">
+              <PropertyRef Name="user_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -250,7 +279,19 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Talent_Build">
-              <PropertyRef Name="Talent_id" />
+              <PropertyRef Name="talent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Talent_Hero">
+          <End Role="Hero" Type="Self.Hero" Multiplicity="1" />
+          <End Role="Talent" Type="Self.Talent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hero">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Talent">
+              <PropertyRef Name="hero_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -269,6 +310,7 @@
         <EntityContainer Name="HeroesDBModelStoreContainer">
           <EntitySet Name="Ability" EntityType="Self.Ability" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ability_Effect" EntityType="Self.Ability_Effect" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Average_Stats" EntityType="Self.Average_Stats" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Build" EntityType="Self.Build" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Effect" EntityType="Self.Effect" Schema="dbo" store:Type="Tables" />
@@ -279,6 +321,7 @@
           <EntitySet Name="Talent" EntityType="Self.Talent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Talent_Build" EntityType="Self.Talent_Build" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Universum" EntityType="Self.Universum" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Ability_Effect_Ability" Association="Self.FK_Ability_Effect_Ability">
             <End Role="Ability" EntitySet="Ability" />
             <End Role="Ability_Effect" EntitySet="Ability_Effect" />
@@ -287,13 +330,13 @@
             <End Role="Effect" EntitySet="Effect" />
             <End Role="Ability_Effect" EntitySet="Ability_Effect" />
           </AssociationSet>
+          <AssociationSet Name="FK_Ability_Effect_Talent" Association="Self.FK_Ability_Effect_Talent">
+            <End Role="Talent" EntitySet="Talent" />
+            <End Role="Ability_Effect" EntitySet="Ability_Effect" />
+          </AssociationSet>
           <AssociationSet Name="FK_Ability_Hero" Association="Self.FK_Ability_Hero">
             <End Role="Hero" EntitySet="Hero" />
             <End Role="Ability" EntitySet="Ability" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Build_Hero" Association="Self.FK_Build_Hero">
-            <End Role="Hero" EntitySet="Hero" />
-            <End Role="Build" EntitySet="Build" />
           </AssociationSet>
           <AssociationSet Name="FK_Comment_Hero" Association="Self.FK_Comment_Hero">
             <End Role="Hero" EntitySet="Hero" />
@@ -307,17 +350,25 @@
             <End Role="Universum" EntitySet="Universum" />
             <End Role="Hero" EntitySet="Hero" />
           </AssociationSet>
+          <AssociationSet Name="FK_Stats_Average_Stats" Association="Self.FK_Stats_Average_Stats">
+            <End Role="Average_Stats" EntitySet="Average_Stats" />
+            <End Role="Stats" EntitySet="Stats" />
+          </AssociationSet>
           <AssociationSet Name="FK_Stats_Hero" Association="Self.FK_Stats_Hero">
             <End Role="Hero" EntitySet="Hero" />
             <End Role="Stats" EntitySet="Stats" />
           </AssociationSet>
-          <AssociationSet Name="FK_Talent_Ability" Association="Self.FK_Talent_Ability">
-            <End Role="Ability" EntitySet="Ability" />
-            <End Role="Talent" EntitySet="Talent" />
+          <AssociationSet Name="FK_Stats_User" Association="Self.FK_Stats_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Stats" EntitySet="Stats" />
           </AssociationSet>
           <AssociationSet Name="FK_Talent_Build_Talent" Association="Self.FK_Talent_Build_Talent">
             <End Role="Talent" EntitySet="Talent" />
             <End Role="Talent_Build" EntitySet="Talent_Build" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Talent_Hero" Association="Self.FK_Talent_Hero">
+            <End Role="Hero" EntitySet="Hero" />
+            <End Role="Talent" EntitySet="Talent" />
           </AssociationSet>
           <AssociationSet Name="FK_Talent_Tree_Build" Association="Self.FK_Talent_Tree_Build">
             <End Role="Build" EntitySet="Build" />
@@ -331,6 +382,7 @@
         <EntityContainer Name="HeroesDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Ability" EntityType="HeroesDBModel.Ability" />
           <EntitySet Name="Ability_Effect" EntityType="HeroesDBModel.Ability_Effect" />
+          <EntitySet Name="Average_Stats" EntityType="HeroesDBModel.Average_Stats" />
           <EntitySet Name="Build" EntityType="HeroesDBModel.Build" />
           <EntitySet Name="Comment" EntityType="HeroesDBModel.Comment" />
           <EntitySet Name="Effect" EntityType="HeroesDBModel.Effect" />
@@ -339,8 +391,8 @@
           <EntitySet Name="Stats" EntityType="HeroesDBModel.Stats" />
           <EntitySet Name="sysdiagrams" EntityType="HeroesDBModel.sysdiagrams" />
           <EntitySet Name="Talent" EntityType="HeroesDBModel.Talent" />
-          <EntitySet Name="Talent_Build" EntityType="HeroesDBModel.Talent_Build" />
           <EntitySet Name="Universum" EntityType="HeroesDBModel.Universum" />
+          <EntitySet Name="User" EntityType="HeroesDBModel.User" />
           <AssociationSet Name="FK_Ability_Effect_Ability" Association="HeroesDBModel.FK_Ability_Effect_Ability">
             <End Role="Ability" EntitySet="Ability" />
             <End Role="Ability_Effect" EntitySet="Ability_Effect" />
@@ -349,21 +401,17 @@
             <End Role="Hero" EntitySet="Hero" />
             <End Role="Ability" EntitySet="Ability" />
           </AssociationSet>
-          <AssociationSet Name="FK_Talent_Ability" Association="HeroesDBModel.FK_Talent_Ability">
-            <End Role="Ability" EntitySet="Ability" />
-            <End Role="Talent" EntitySet="Talent" />
-          </AssociationSet>
           <AssociationSet Name="FK_Ability_Effect_Effect" Association="HeroesDBModel.FK_Ability_Effect_Effect">
             <End Role="Effect" EntitySet="Effect" />
             <End Role="Ability_Effect" EntitySet="Ability_Effect" />
           </AssociationSet>
-          <AssociationSet Name="FK_Build_Hero" Association="HeroesDBModel.FK_Build_Hero">
-            <End Role="Hero" EntitySet="Hero" />
-            <End Role="Build" EntitySet="Build" />
+          <AssociationSet Name="FK_Ability_Effect_Talent" Association="HeroesDBModel.FK_Ability_Effect_Talent">
+            <End Role="Talent" EntitySet="Talent" />
+            <End Role="Ability_Effect" EntitySet="Ability_Effect" />
           </AssociationSet>
-          <AssociationSet Name="FK_Talent_Tree_Build" Association="HeroesDBModel.FK_Talent_Tree_Build">
-            <End Role="Build" EntitySet="Build" />
-            <End Role="Talent_Build" EntitySet="Talent_Build" />
+          <AssociationSet Name="FK_Stats_Average_Stats" Association="HeroesDBModel.FK_Stats_Average_Stats">
+            <End Role="Average_Stats" EntitySet="Average_Stats" />
+            <End Role="Stats" EntitySet="Stats" />
           </AssociationSet>
           <AssociationSet Name="FK_Comment_Hero" Association="HeroesDBModel.FK_Comment_Hero">
             <End Role="Hero" EntitySet="Hero" />
@@ -381,9 +429,17 @@
             <End Role="Hero" EntitySet="Hero" />
             <End Role="Stats" EntitySet="Stats" />
           </AssociationSet>
-          <AssociationSet Name="FK_Talent_Build_Talent" Association="HeroesDBModel.FK_Talent_Build_Talent">
+          <AssociationSet Name="FK_Talent_Hero" Association="HeroesDBModel.FK_Talent_Hero">
+            <End Role="Hero" EntitySet="Hero" />
             <End Role="Talent" EntitySet="Talent" />
-            <End Role="Talent_Build" EntitySet="Talent_Build" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stats_User" Association="HeroesDBModel.FK_Stats_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Stats" EntitySet="Stats" />
+          </AssociationSet>
+          <AssociationSet Name="Talent_Build" Association="HeroesDBModel.Talent_Build">
+            <End Role="Talent" EntitySet="Talent" />
+            <End Role="Build" EntitySet="Build" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Ability">
@@ -393,25 +449,40 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="base_dmg" Type="Single" Nullable="false" />
           <Property Name="xp_coefficient" Type="Single" Nullable="false" />
           <Property Name="hero_id" Type="Int32" Nullable="false" />
           <Property Name="usage" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ability_Effect" Relationship="HeroesDBModel.FK_Ability_Effect_Ability" FromRole="Ability" ToRole="Ability_Effect" />
           <NavigationProperty Name="Hero" Relationship="HeroesDBModel.FK_Ability_Hero" FromRole="Ability" ToRole="Hero" />
-          <NavigationProperty Name="Talent" Relationship="HeroesDBModel.FK_Talent_Ability" FromRole="Ability" ToRole="Talent" />
         </EntityType>
         <EntityType Name="Ability_Effect">
           <Key>
-            <PropertyRef Name="ability_id" />
-            <PropertyRef Name="effect_id" />
+            <PropertyRef Name="id" />
           </Key>
           <Property Name="ability_id" Type="Int32" Nullable="false" />
           <Property Name="effect_id" Type="Int32" Nullable="false" />
-          <Property Name="value" Type="Int32" Nullable="false" />
-          <Property Name="time" Type="Int32" Nullable="false" />
+          <Property Name="talent_id" Type="Int32" />
+          <Property Name="value" Type="Single" Nullable="false" />
+          <Property Name="time" Type="Single" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="talented_value" Type="Single" Nullable="false" />
+          <Property Name="talented_time" Type="Single" Nullable="false" />
           <NavigationProperty Name="Ability" Relationship="HeroesDBModel.FK_Ability_Effect_Ability" FromRole="Ability_Effect" ToRole="Ability" />
           <NavigationProperty Name="Effect" Relationship="HeroesDBModel.FK_Ability_Effect_Effect" FromRole="Ability_Effect" ToRole="Effect" />
+          <NavigationProperty Name="Talent" Relationship="HeroesDBModel.FK_Ability_Effect_Talent" FromRole="Ability_Effect" ToRole="Talent" />
+        </EntityType>
+        <EntityType Name="Average_Stats">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="average_hero_damage" Type="Single" Nullable="false" />
+          <Property Name="average_siege_damage" Type="Single" Nullable="false" />
+          <Property Name="average_role" Type="Single" Nullable="false" />
+          <Property Name="average_xp_contribution" Type="Single" Nullable="false" />
+          <Property Name="number_of_games" Type="Int32" Nullable="false" />
+          <Property Name="hero_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Stats" Relationship="HeroesDBModel.FK_Stats_Average_Stats" FromRole="Average_Stats" ToRole="Stats" />
         </EntityType>
         <EntityType Name="Build">
           <Key>
@@ -420,9 +491,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="hero_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Hero" Relationship="HeroesDBModel.FK_Build_Hero" FromRole="Build" ToRole="Hero" />
-          <NavigationProperty Name="Talent_Build" Relationship="HeroesDBModel.FK_Talent_Tree_Build" FromRole="Build" ToRole="Talent_Build" />
+          <NavigationProperty Name="Talent" Relationship="HeroesDBModel.Talent_Build" FromRole="Build" ToRole="Talent" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -459,11 +528,11 @@
           <Property Name="attack_speed" Type="Single" Nullable="false" />
           <Property Name="owned" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Ability" Relationship="HeroesDBModel.FK_Ability_Hero" FromRole="Hero" ToRole="Ability" />
-          <NavigationProperty Name="Build" Relationship="HeroesDBModel.FK_Build_Hero" FromRole="Hero" ToRole="Build" />
           <NavigationProperty Name="Comment" Relationship="HeroesDBModel.FK_Comment_Hero" FromRole="Hero" ToRole="Comment" />
           <NavigationProperty Name="Role" Relationship="HeroesDBModel.FK_Hero_Role" FromRole="Hero" ToRole="Role" />
           <NavigationProperty Name="Universum" Relationship="HeroesDBModel.FK_Hero_Universum" FromRole="Hero" ToRole="Universum" />
           <NavigationProperty Name="Stats" Relationship="HeroesDBModel.FK_Stats_Hero" FromRole="Hero" ToRole="Stats" />
+          <NavigationProperty Name="Talent" Relationship="HeroesDBModel.FK_Talent_Hero" FromRole="Hero" ToRole="Talent" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -477,23 +546,22 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="average_stats_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
           <Property Name="hero_id" Type="Int32" Nullable="false" />
           <Property Name="hero_damage" Type="Int32" Nullable="false" />
           <Property Name="siege_damage" Type="Int32" Nullable="false" />
           <Property Name="role" Type="Int32" Nullable="false" />
           <Property Name="xp_contribution" Type="Int32" Nullable="false" />
-          <Property Name="average_hero_damage" Type="Int32" Nullable="false" />
-          <Property Name="average_siege_damage" Type="Int32" Nullable="false" />
-          <Property Name="average_role" Type="Int32" Nullable="false" />
-          <Property Name="average_xp_contribution" Type="Int32" Nullable="false" />
-          <Property Name="player_average_hero_damage" Type="Int32" Nullable="false" />
-          <Property Name="player_average_siege_damage" Type="Int32" Nullable="false" />
-          <Property Name="player_average_role" Type="Int32" Nullable="false" />
-          <Property Name="player_average_xp_contribution" Type="Int32" Nullable="false" />
+          <Property Name="player_average_hero_damage" Type="Single" Nullable="false" />
+          <Property Name="player_average_siege_damage" Type="Single" Nullable="false" />
+          <Property Name="player_average_role" Type="Single" Nullable="false" />
+          <Property Name="player_average_xp_contribution" Type="Single" Nullable="false" />
           <Property Name="number_of_games" Type="Int32" Nullable="false" />
-          <Property Name="number_of_occurrence" Type="Int32" Nullable="false" />
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Average_Stats" Relationship="HeroesDBModel.FK_Stats_Average_Stats" FromRole="Stats" ToRole="Average_Stats" />
           <NavigationProperty Name="Hero" Relationship="HeroesDBModel.FK_Stats_Hero" FromRole="Stats" ToRole="Hero" />
+          <NavigationProperty Name="User" Relationship="HeroesDBModel.FK_Stats_User" FromRole="Stats" ToRole="User" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -513,21 +581,10 @@
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="lvl" Type="Int32" Nullable="false" />
-          <Property Name="ability_id" Type="Int32" Nullable="false" />
-          <Property Name="build_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Ability" Relationship="HeroesDBModel.FK_Talent_Ability" FromRole="Talent" ToRole="Ability" />
-          <NavigationProperty Name="Talent_Build" Relationship="HeroesDBModel.FK_Talent_Build_Talent" FromRole="Talent" ToRole="Talent_Build" />
-        </EntityType>
-        <EntityType Name="Talent_Build">
-          <Key>
-            <PropertyRef Name="build_id" />
-            <PropertyRef Name="Talent_id" />
-          </Key>
-          <Property Name="build_id" Type="Int32" Nullable="false" />
-          <Property Name="Talent_id" Type="Int32" Nullable="false" />
-          <Property Name="is_selected" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Build" Relationship="HeroesDBModel.FK_Talent_Tree_Build" FromRole="Talent_Build" ToRole="Build" />
-          <NavigationProperty Name="Talent" Relationship="HeroesDBModel.FK_Talent_Build_Talent" FromRole="Talent_Build" ToRole="Talent" />
+          <Property Name="hero_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ability_Effect" Relationship="HeroesDBModel.FK_Ability_Effect_Talent" FromRole="Talent" ToRole="Ability_Effect" />
+          <NavigationProperty Name="Hero" Relationship="HeroesDBModel.FK_Talent_Hero" FromRole="Talent" ToRole="Hero" />
+          <NavigationProperty Name="Build" Relationship="HeroesDBModel.Talent_Build" FromRole="Talent" ToRole="Build" />
         </EntityType>
         <EntityType Name="Universum">
           <Key>
@@ -536,6 +593,16 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Hero" Relationship="HeroesDBModel.FK_Hero_Universum" FromRole="Universum" ToRole="Hero" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="admin_permission" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Stats" Relationship="HeroesDBModel.FK_Stats_User" FromRole="User" ToRole="Stats" />
         </EntityType>
         <Association Name="FK_Ability_Effect_Ability">
           <End Type="HeroesDBModel.Ability" Role="Ability" Multiplicity="1" />
@@ -561,18 +628,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Talent_Ability">
-          <End Type="HeroesDBModel.Ability" Role="Ability" Multiplicity="1" />
-          <End Type="HeroesDBModel.Talent" Role="Talent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ability">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Talent">
-              <PropertyRef Name="ability_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Ability_Effect_Effect">
           <End Type="HeroesDBModel.Effect" Role="Effect" Multiplicity="1" />
           <End Type="HeroesDBModel.Ability_Effect" Role="Ability_Effect" Multiplicity="*" />
@@ -585,27 +640,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Build_Hero">
-          <End Type="HeroesDBModel.Hero" Role="Hero" Multiplicity="1" />
-          <End Type="HeroesDBModel.Build" Role="Build" Multiplicity="*" />
+        <Association Name="FK_Ability_Effect_Talent">
+          <End Type="HeroesDBModel.Talent" Role="Talent" Multiplicity="0..1" />
+          <End Type="HeroesDBModel.Ability_Effect" Role="Ability_Effect" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Hero">
+            <Principal Role="Talent">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Build">
-              <PropertyRef Name="hero_id" />
+            <Dependent Role="Ability_Effect">
+              <PropertyRef Name="talent_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Talent_Tree_Build">
-          <End Type="HeroesDBModel.Build" Role="Build" Multiplicity="1" />
-          <End Type="HeroesDBModel.Talent_Build" Role="Talent_Build" Multiplicity="*" />
+        <Association Name="FK_Stats_Average_Stats">
+          <End Type="HeroesDBModel.Average_Stats" Role="Average_Stats" Multiplicity="1" />
+          <End Type="HeroesDBModel.Stats" Role="Stats" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Build">
+            <Principal Role="Average_Stats">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Talent_Build">
-              <PropertyRef Name="build_id" />
+            <Dependent Role="Stats">
+              <PropertyRef Name="average_stats_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -657,17 +712,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Talent_Build_Talent">
-          <End Type="HeroesDBModel.Talent" Role="Talent" Multiplicity="1" />
-          <End Type="HeroesDBModel.Talent_Build" Role="Talent_Build" Multiplicity="*" />
+        <Association Name="FK_Talent_Hero">
+          <End Type="HeroesDBModel.Hero" Role="Hero" Multiplicity="1" />
+          <End Type="HeroesDBModel.Talent" Role="Talent" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Talent">
+            <Principal Role="Hero">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Talent_Build">
-              <PropertyRef Name="Talent_id" />
+            <Dependent Role="Talent">
+              <PropertyRef Name="hero_id" />
             </Dependent>
           </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stats_User">
+          <End Type="HeroesDBModel.User" Role="User" Multiplicity="1" />
+          <End Type="HeroesDBModel.Stats" Role="Stats" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Stats">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Talent_Build">
+          <End Type="HeroesDBModel.Talent" Role="Talent" Multiplicity="*" />
+          <End Type="HeroesDBModel.Build" Role="Build" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -681,7 +752,6 @@
                 <ScalarProperty Name="usage" ColumnName="usage" />
                 <ScalarProperty Name="hero_id" ColumnName="hero_id" />
                 <ScalarProperty Name="xp_coefficient" ColumnName="xp_coefficient" />
-                <ScalarProperty Name="base_dmg" ColumnName="base_dmg" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -691,17 +761,33 @@
           <EntitySetMapping Name="Ability_Effect">
             <EntityTypeMapping TypeName="HeroesDBModel.Ability_Effect">
               <MappingFragment StoreEntitySet="Ability_Effect">
+                <ScalarProperty Name="talented_time" ColumnName="talented_time" />
+                <ScalarProperty Name="talented_value" ColumnName="talented_value" />
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="time" ColumnName="time" />
                 <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="talent_id" ColumnName="talent_id" />
                 <ScalarProperty Name="effect_id" ColumnName="effect_id" />
                 <ScalarProperty Name="ability_id" ColumnName="ability_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Average_Stats">
+            <EntityTypeMapping TypeName="HeroesDBModel.Average_Stats">
+              <MappingFragment StoreEntitySet="Average_Stats">
+                <ScalarProperty Name="hero_id" ColumnName="hero_id" />
+                <ScalarProperty Name="number_of_games" ColumnName="number_of_games" />
+                <ScalarProperty Name="average_xp_contribution" ColumnName="average_xp_contribution" />
+                <ScalarProperty Name="average_role" ColumnName="average_role" />
+                <ScalarProperty Name="average_siege_damage" ColumnName="average_siege_damage" />
+                <ScalarProperty Name="average_hero_damage" ColumnName="average_hero_damage" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Build">
             <EntityTypeMapping TypeName="HeroesDBModel.Build">
               <MappingFragment StoreEntitySet="Build">
-                <ScalarProperty Name="hero_id" ColumnName="hero_id" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -755,22 +841,19 @@
           <EntitySetMapping Name="Stats">
             <EntityTypeMapping TypeName="HeroesDBModel.Stats">
               <MappingFragment StoreEntitySet="Stats">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="number_of_occurrence" ColumnName="number_of_occurrence" />
                 <ScalarProperty Name="number_of_games" ColumnName="number_of_games" />
                 <ScalarProperty Name="player_average_xp_contribution" ColumnName="player_average_xp_contribution" />
                 <ScalarProperty Name="player_average_role" ColumnName="player_average_role" />
                 <ScalarProperty Name="player_average_siege_damage" ColumnName="player_average_siege_damage" />
                 <ScalarProperty Name="player_average_hero_damage" ColumnName="player_average_hero_damage" />
-                <ScalarProperty Name="average_xp_contribution" ColumnName="average_xp_contribution" />
-                <ScalarProperty Name="average_role" ColumnName="average_role" />
-                <ScalarProperty Name="average_siege_damage" ColumnName="average_siege_damage" />
-                <ScalarProperty Name="average_hero_damage" ColumnName="average_hero_damage" />
                 <ScalarProperty Name="xp_contribution" ColumnName="xp_contribution" />
                 <ScalarProperty Name="role" ColumnName="role" />
                 <ScalarProperty Name="siege_damage" ColumnName="siege_damage" />
                 <ScalarProperty Name="hero_damage" ColumnName="hero_damage" />
                 <ScalarProperty Name="hero_id" ColumnName="hero_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="average_stats_id" ColumnName="average_stats_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -788,21 +871,11 @@
           <EntitySetMapping Name="Talent">
             <EntityTypeMapping TypeName="HeroesDBModel.Talent">
               <MappingFragment StoreEntitySet="Talent">
-                <ScalarProperty Name="build_id" ColumnName="build_id" />
-                <ScalarProperty Name="ability_id" ColumnName="ability_id" />
+                <ScalarProperty Name="hero_id" ColumnName="hero_id" />
                 <ScalarProperty Name="lvl" ColumnName="lvl" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Talent_Build">
-            <EntityTypeMapping TypeName="HeroesDBModel.Talent_Build">
-              <MappingFragment StoreEntitySet="Talent_Build">
-                <ScalarProperty Name="is_selected" ColumnName="is_selected" />
-                <ScalarProperty Name="Talent_id" ColumnName="Talent_id" />
-                <ScalarProperty Name="build_id" ColumnName="build_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -814,6 +887,24 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="HeroesDBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="admin_permission" ColumnName="admin_permission" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Talent_Build" TypeName="HeroesDBModel.Talent_Build" StoreEntitySet="Talent_Build">
+            <EndProperty Name="Build">
+              <ScalarProperty Name="id" ColumnName="build_id" />
+            </EndProperty>
+            <EndProperty Name="Talent">
+              <ScalarProperty Name="id" ColumnName="talent_id" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

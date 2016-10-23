@@ -30,7 +30,11 @@ namespace HeroesDomainModel
         public int number_of_games { get; set; }
         public int number_of_occurrence { get; set; }
         public int id { get; set; }
+        public int average_stats_id { get; set; }
+        public int user_id { get; set; }
     
         public virtual Hero Hero { get; set; }
+        public virtual Average_Stats Average_Stats { get; set; }
+        public virtual User User { get; set; }
     }
 }

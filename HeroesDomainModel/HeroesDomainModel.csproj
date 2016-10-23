@@ -45,6 +45,9 @@
     <Compile Include="Ability_Effect.cs">
       <DependentUpon>HeroesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Average_Stats.cs">
+      <DependentUpon>HeroesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Build.cs">
       <DependentUpon>HeroesModel.tt</DependentUpon>
     </Compile>
@@ -79,6 +82,9 @@
       <DependentUpon>HeroesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Universum.cs">
+      <DependentUpon>HeroesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
       <DependentUpon>HeroesModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
