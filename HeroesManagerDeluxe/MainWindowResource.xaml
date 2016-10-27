@@ -1,5 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:HeroesManagerDeluxe.ViewModel"
+                    xmlns:vw="clr-namespace:HeroesManagerDeluxe.View"
+                    >
+
+    <DataTemplate DataType="{x:Type vm:HeroDetailsViewModel}">
+        <vw:HeroDetailsView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:HeroesListViewModel}">
+        <vw:HeroesListView/>
+    </DataTemplate>
+
 
     <!-- 
     This style configures both of the main content areas in the main window.
