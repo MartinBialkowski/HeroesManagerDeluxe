@@ -78,9 +78,6 @@
     <Compile Include="Talent.cs">
       <DependentUpon>HeroesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Talent_Build.cs">
-      <DependentUpon>HeroesModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Universum.cs">
       <DependentUpon>HeroesModel.tt</DependentUpon>
     </Compile>

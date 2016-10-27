@@ -17,19 +17,16 @@ namespace HeroesDomainModel
         public Ability()
         {
             this.Ability_Effect = new HashSet<Ability_Effect>();
-            this.Talent = new HashSet<Talent>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public float base_dmg { get; set; }
         public float xp_coefficient { get; set; }
         public int hero_id { get; set; }
         public string usage { get; set; }
     
         public virtual ICollection<Ability_Effect> Ability_Effect { get; set; }
         public virtual Hero Hero { get; set; }
-        public virtual ICollection<Talent> Talent { get; set; }
     }
 }

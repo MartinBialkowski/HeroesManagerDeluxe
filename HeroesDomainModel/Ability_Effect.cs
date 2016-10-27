@@ -16,9 +16,9 @@ namespace HeroesDomainModel
     {
         public int ability_id { get; set; }
         public int effect_id { get; set; }
-        public int value { get; set; }
-        public int time { get; set; }
         public Nullable<int> talent_id { get; set; }
+        public float value { get; set; }
+        public float time { get; set; }
         public int id { get; set; }
         public float talented_value { get; set; }
         public float talented_time { get; set; }

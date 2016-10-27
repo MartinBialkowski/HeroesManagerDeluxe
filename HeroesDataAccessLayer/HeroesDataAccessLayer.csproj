@@ -48,6 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connection\DBConnection.cs" />
+    <Compile Include="DAO\DAO.cs" />
+    <Compile Include="DAO\HeroesDAO.cs" />
     <Compile Include="GenericDataRepository.cs" />
     <Compile Include="HeroesModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -60,6 +63,7 @@
       <DependentUpon>HeroesModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="IGenericDataRepository.cs" />
+    <Compile Include="IGenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

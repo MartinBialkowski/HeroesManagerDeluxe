@@ -16,17 +16,13 @@ namespace HeroesDomainModel
     {
         public Build()
         {
-            this.Talent_Build = new HashSet<Talent_Build>();
             this.Talent = new HashSet<Talent>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public int hero_id { get; set; }
     
-        public virtual Hero Hero { get; set; }
-        public virtual ICollection<Talent_Build> Talent_Build { get; set; }
         public virtual ICollection<Talent> Talent { get; set; }
     }
 }
