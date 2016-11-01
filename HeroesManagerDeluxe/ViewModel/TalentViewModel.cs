@@ -11,6 +11,11 @@ namespace HeroesManagerDeluxe.ViewModel
     {
         private Talent talent;
 
+        public TalentViewModel(Talent talent)
+        {
+            this.talent = talent;
+        }
+
         public string Name
         {
             get

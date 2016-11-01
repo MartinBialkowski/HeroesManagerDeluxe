@@ -16,9 +16,15 @@ namespace HeroesManagerDeluxe.ViewModel
         public AbilityViewModel(Ability ability)
         {
             this.ability = ability;
+            LoadEffects();
         }
 
-        //TODO loads effects from db, then show it to user
+        public void LoadEffects()
+        {
+            List<AbilityEffectViewModel> all = (from effect in ability.Ability_Effect
+                                              select new AbilityEffectViewModel(effect)).ToList();
+            Effects = new ObservableCollection<AbilityEffectViewModel>(all);
+        }
 
         public string Name
         {

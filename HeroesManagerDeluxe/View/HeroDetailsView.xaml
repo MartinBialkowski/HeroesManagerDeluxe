@@ -7,30 +7,44 @@
              >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Slider Margin="5" Minimum="1" Maximum="30" Value="{Binding Level}" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <StackPanel Grid.Column="2" Grid.Row="1" Margin="5,0">
             <Label Content="{Binding Abilities[0].Name}"/>
-            <TextBlock Height="60" MinWidth="130"
+            <TextBlock MinWidth="130" Style="{StaticResource DescriptionStyle}"
                        Text="{Binding Abilities[0].Description}"/>
             <Label Content="{Binding Abilities[1].Name}"/>
-            <TextBlock Height="60" MinWidth="130"
+            <TextBlock MinWidth="130" Style="{StaticResource DescriptionStyle}"
                        Text="{Binding Abilities[1].Description}"/>
             <Label Content="{Binding Abilities[2].Name}"/>
-            <TextBlock Height="60" MinWidth="130"
+            <TextBlock MinWidth="130" Style="{StaticResource DescriptionStyle}"
                        Text="{Binding Abilities[2].Description}"/>
             <Label Content="{Binding Abilities[3].Name}"/>
-            <TextBlock Height="60" MinWidth="130"
+            <TextBlock MinWidth="130" Style="{StaticResource DescriptionStyle}"
                        Text="{Binding Abilities[3].Description}"/>
             <Label Content="{Binding Abilities[4].Name}"/>
-            <TextBlock Height="60" MinWidth="130"
+            <TextBlock MinWidth="130" Style="{StaticResource DescriptionStyle}"
                        Text="{Binding Abilities[4].Description}"/>
+            <Label Content="{Binding Abilities[5].Name}"/>
+            <TextBlock MinWidth="130" Style="{StaticResource DescriptionStyle}"
+                       Text="{Binding Abilities[5].Description}"/>
+            <Label Content="{Binding Abilities[6].Name}"/>
+            <TextBlock MinWidth="130" Style="{StaticResource DescriptionStyle}"
+                       Text="{Binding Abilities[6].Description}"/>
+            <Label Content="{Binding Abilities[7].Name}"/>
+            <TextBlock MinWidth="130" Style="{StaticResource DescriptionStyle}"
+                       Text="{Binding Abilities[7].Description}"/>
             
         </StackPanel>
-        <StackPanel Grid.Column="3">
+        <StackPanel Grid.Column="3" Grid.Row="1">
             <Label Content="Health" FontSize="12"/>
             <Label Content="{Binding HP}" FontSize="12"/>
             <Label Content="Energy" FontSize="12"/>
@@ -39,16 +53,25 @@
             <Label Content="{Binding AutoAttackDamage}" FontSize="12"/>
             <Label Content="Attack Speed" FontSize="12"/>
             <Label Content="{Binding AutoAttackSpeed}" FontSize="12"/>
-            <Slider Margin="5" Minimum="1" Maximum="30" Value="{Binding Level}"/>
+            
             <WrapPanel>
                 <Button Content="Save" Margin="5" Width="60" HorizontalAlignment="Left"/>
                 <Button Content="Show" Margin="5" Width="60" HorizontalAlignment="Right"/>
             </WrapPanel>
         </StackPanel>
         <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch"/>
-        <DataGrid Grid.Column="0" 
+        <DataGrid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
             SelectionMode="Extended" AutoGenerateColumns="False"
             ItemsSource="{Binding Talents, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.RowHeaderTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <CheckBox IsChecked="{Binding Path=IsSelected, Mode=TwoWay,
+                          RelativeSource={RelativeSource FindAncestor,
+                          AncestorType={x:Type DataGridRow}}}"/>
+                    </Grid>
+                </DataTemplate>
+            </DataGrid.RowHeaderTemplate>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Lvl" Binding="{Binding Level}"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>

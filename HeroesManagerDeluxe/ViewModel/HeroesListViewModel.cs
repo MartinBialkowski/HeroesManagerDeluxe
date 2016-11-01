@@ -56,6 +56,8 @@ namespace HeroesManagerDeluxe.ViewModel
         /// </summary>
         private void ShowDetail()
         {
+            SelectedHero.LoadAbilities();
+            SelectedHero.LoadTalents();
             DisplayWorkspaceMessage message = new DisplayWorkspaceMessage(SelectedHero);
             Messenger.Default.Send<DisplayWorkspaceMessage>(message);
         }

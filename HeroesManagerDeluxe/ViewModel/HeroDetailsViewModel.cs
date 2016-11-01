@@ -13,18 +13,29 @@ namespace HeroesManagerDeluxe.ViewModel
     {
         private Hero hero;
         private HeroesDAO hDAO;
-        public ObservableCollection<AbilityViewModel> Abilities;
-        public ObservableCollection<TalentViewModel> Talents;
+        public ObservableCollection<AbilityViewModel> Abilities { get; private set; }
+        public ObservableCollection<TalentViewModel> Talents { get; private set; }
 
         public HeroDetailsViewModel(Hero hero, HeroesDAO hDAO)
         {
             this.hero = hero;
             this.hDAO = hDAO;
+
+            base.DisplayName = hero.name;
         }
 
         public void LoadAbilities()
         {
-            
+            List<AbilityViewModel> all = (from ability in hero.Ability
+                                          select new AbilityViewModel(ability)).ToList();
+            Abilities = new ObservableCollection<AbilityViewModel>(all);   
+        }
+
+        public void LoadTalents()
+        {
+            List<TalentViewModel> all = (from talent in hero.Talent
+                                         select new TalentViewModel(talent)).ToList();
+            Talents = new ObservableCollection<TalentViewModel>(all);
         }
 
         public string Name
