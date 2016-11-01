@@ -61,6 +61,24 @@ namespace HeroesManagerDeluxe.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HeroDetailCommand.
+        /// </summary>
+        internal static string HeroDetailCommand {
+            get {
+                return ResourceManager.GetString("HeroDetailCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heroes.
+        /// </summary>
+        internal static string Name_HeroesListViewModel {
+            get {
+                return ResourceManager.GetString("Name_HeroesListViewModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SearchCommand.
         /// </summary>
         internal static string SearchCommand {

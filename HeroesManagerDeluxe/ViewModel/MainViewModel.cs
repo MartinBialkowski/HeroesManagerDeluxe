@@ -9,9 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using HeroesDataAccessLayer;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace HeroesManagerDeluxe.ViewModel
 {
+    //Very Important EF must be installed in every project (future use)
     public class MainViewModel : WorkspaceViewModel
     {
         private ObservableCollection<WorkspaceViewModel> workspaces;
@@ -20,6 +22,10 @@ namespace HeroesManagerDeluxe.ViewModel
         public MainViewModel()
         {
             heroesDAO = new HeroesDAO();
+            HeroesListViewModel workspace = new HeroesListViewModel(heroesDAO);
+            Workspaces.Add(workspace);
+
+            RegisterMessage();
         }
 
         /// <summary>
@@ -37,6 +43,20 @@ namespace HeroesManagerDeluxe.ViewModel
                 }
                 return workspaces;
             }
+        }
+
+        private void RegisterMessage()
+        {
+            Messenger.Default.Register<DisplayWorkspaceMessage>(this, (msg) =>
+            {
+                //TODO ask about it. Adding same workspace
+                //1. Easy to do  let only 1 HeroDetail at once
+                //2. Hard search through list find every HeroDetail, then compare
+                //theirs heroName with msg.workspace.heroName
+                //right now user can adds multiply tabs of Abathur or other heroes
+                Workspaces.Add(msg.workspace);
+                SetActiveWorkspace(msg.workspace);
+            });
         }
 
         /// <summary>
