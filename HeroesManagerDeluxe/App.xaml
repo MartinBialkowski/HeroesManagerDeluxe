@@ -13,8 +13,8 @@
         </Style>
         <Style TargetType="TextBlock" x:Key="DescriptionStyle">
             <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
-            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <!--<Setter Property="Margin" Value="5,0,0,0"/>-->
         </Style>
     </Application.Resources>
 </Application>

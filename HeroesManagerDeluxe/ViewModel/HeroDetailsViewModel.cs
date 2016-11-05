@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace HeroesManagerDeluxe.ViewModel
 {
+    //TODO ask about it. Should I grouping data in DataGrid? or leave it as it is.
     public class HeroDetailsViewModel : WorkspaceViewModel
     {
         private Hero hero;
@@ -128,6 +129,7 @@ namespace HeroesManagerDeluxe.ViewModel
                 return hero.Role.title;
             }
         }
+
         public int Level { get; set; }
     }
 }

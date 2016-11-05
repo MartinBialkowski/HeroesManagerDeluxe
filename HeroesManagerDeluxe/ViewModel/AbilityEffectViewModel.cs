@@ -10,7 +10,6 @@ namespace HeroesManagerDeluxe.ViewModel
     public class AbilityEffectViewModel : WorkspaceViewModel
     {
         private Ability_Effect abilityEffect;
-
         public AbilityEffectViewModel(Ability_Effect abilityEffect)
         {
             this.abilityEffect = abilityEffect;
@@ -50,7 +49,7 @@ namespace HeroesManagerDeluxe.ViewModel
             }
             set
             {
-                if(value != abilityEffect.time)
+                if (value != abilityEffect.time)
                 {
                     abilityEffect.time = value;
 
@@ -67,7 +66,7 @@ namespace HeroesManagerDeluxe.ViewModel
             }
             set
             {
-                if(value != abilityEffect.talented_value)
+                if (value != abilityEffect.talented_value)
                 {
                     abilityEffect.talented_value = value;
 
@@ -84,7 +83,7 @@ namespace HeroesManagerDeluxe.ViewModel
             }
             set
             {
-                if(value != abilityEffect.talented_time)
+                if (value != abilityEffect.talented_time)
                 {
                     abilityEffect.talented_time = value;
 
@@ -92,5 +91,21 @@ namespace HeroesManagerDeluxe.ViewModel
                 }
             }
         }
+        public bool IsBaseEffect
+        {
+            get
+            {
+                if (abilityEffect.value != 0 || abilityEffect.time != 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public string ValueToDisplay { get; set; }
     }
 }

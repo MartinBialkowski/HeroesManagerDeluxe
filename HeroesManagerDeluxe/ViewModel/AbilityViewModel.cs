@@ -11,7 +11,7 @@ namespace HeroesManagerDeluxe.ViewModel
     public class AbilityViewModel : ViewModelBase
     {
         private Ability ability;
-        public ObservableCollection<AbilityEffectViewModel> Effects;
+        public ObservableCollection<AbilityEffectViewModel> AvailableEffects { get; set; }
         public int Level { get; set; }
         public AbilityViewModel(Ability ability)
         {
@@ -22,8 +22,9 @@ namespace HeroesManagerDeluxe.ViewModel
         public void LoadEffects()
         {
             List<AbilityEffectViewModel> all = (from effect in ability.Ability_Effect
+                                                    .Where(a => a.value != 0 || a.time != 0)
                                               select new AbilityEffectViewModel(effect)).ToList();
-            Effects = new ObservableCollection<AbilityEffectViewModel>(all);
+            AvailableEffects = new ObservableCollection<AbilityEffectViewModel>(all);
         }
 
         public string Name
