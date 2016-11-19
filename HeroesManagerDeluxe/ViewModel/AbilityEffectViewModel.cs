@@ -106,6 +106,21 @@ namespace HeroesManagerDeluxe.ViewModel
             }
         }
 
+        public string Helper
+        {
+            get
+            {
+                return abilityEffect.Effect.helper;
+            }
+        }
+
+        public int? TalentId
+        {
+            get
+            {
+                return abilityEffect.talent_id;
+            }
+        }
         public string ValueToDisplay { get; set; }
     }
 }

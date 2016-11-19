@@ -16,6 +16,14 @@ namespace HeroesManagerDeluxe.ViewModel
             this.talent = talent;
         }
 
+        public int ID
+        {
+            get
+            {
+                return talent.id;
+            }
+        }
+
         public string Name
         {
             get
@@ -62,6 +70,11 @@ namespace HeroesManagerDeluxe.ViewModel
                     OnPropertyChanged();
                 }
             }
+        }
+
+        public Talent ReturnTalent()
+        {
+            return talent;
         }
     }
 }

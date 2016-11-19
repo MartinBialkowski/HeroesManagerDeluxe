@@ -89,9 +89,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DisplayWorkspaceMessage.cs" />
+    <Compile Include="MultiselectionDataGrid.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModel\AbilityEffectViewModel.cs" />
     <Compile Include="ViewModel\AbilityViewModel.cs" />
+    <Compile Include="ViewModel\BuildViewModel.cs" />
     <Compile Include="ViewModel\CommandViewModel.cs" />
     <Compile Include="ViewModel\EffectViewModel.cs" />
     <Compile Include="ViewModel\HeroDetailsViewModel.cs" />

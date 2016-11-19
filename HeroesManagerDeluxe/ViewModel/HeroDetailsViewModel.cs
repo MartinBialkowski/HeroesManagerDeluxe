@@ -1,6 +1,9 @@
-﻿using HeroesDataAccessLayer;
+﻿using GalaSoft.MvvmLight.Messaging;
+using HeroesDataAccessLayer;
 using HeroesDomainModel;
+using HeroesManagerDeluxe.Properties;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,35 +12,79 @@ using System.Threading.Tasks;
 
 namespace HeroesManagerDeluxe.ViewModel
 {
-    //TODO ask about it. Should I grouping data in DataGrid? or leave it as it is.
+    //TODO 1 Tab for 1 hero, 
     public class HeroDetailsViewModel : WorkspaceViewModel
     {
         private Hero hero;
         private HeroesDAO hDAO;
         public ObservableCollection<AbilityViewModel> Abilities { get; private set; }
         public ObservableCollection<TalentViewModel> Talents { get; private set; }
+        public BuildViewModel Build { get; private set; }
+        public CommandViewModel UpdateCommand { get; private set; }
+        public CommandViewModel SaveBuildCommand { get; private set; }
+        public IList SelectedTalents { get; set; }
 
+        /// <summary>
+        /// c-tor
+        /// </summary>
+        /// <param name="hero">Entity object</param>
+        /// <param name="hDAO">Data Access Object</param>
         public HeroDetailsViewModel(Hero hero, HeroesDAO hDAO)
         {
             this.hero = hero;
             this.hDAO = hDAO;
 
             base.DisplayName = hero.name;
+
+            UpdateCommand = new CommandViewModel(Resources.UpdateTalents,
+                new RelayCommand(param => UpdateTalents()));
+            SaveBuildCommand = new CommandViewModel(Resources.SaveBuild,
+                new RelayCommand(param => SaveBuild()));
         }
 
+        /// <summary>
+        /// Populates list of abilities
+        /// </summary>
         public void LoadAbilities()
         {
             List<AbilityViewModel> all = (from ability in hero.Ability
                                           select new AbilityViewModel(ability)).ToList();
-            Abilities = new ObservableCollection<AbilityViewModel>(all);   
+            Abilities = new ObservableCollection<AbilityViewModel>(all);
         }
 
+        /// <summary>
+        /// Populates list of talents
+        /// </summary>
         public void LoadTalents()
         {
             List<TalentViewModel> all = (from talent in hero.Talent
                                          select new TalentViewModel(talent)).ToList();
             Talents = new ObservableCollection<TalentViewModel>(all);
         }
+
+        private void SaveBuild()
+        {
+            //NEXT Create BuildViewModel, view and tab(messenger) for it which contains selected talents
+            //and some comments about it from user.
+            BuildViewModel build = new BuildViewModel(SelectedTalents);
+            DisplayWorkspaceMessage message = new DisplayWorkspaceMessage(build);
+            Messenger.Default.Send<DisplayWorkspaceMessage>(message);
+        }
+
+        private void UpdateTalents()
+        {
+            var tmpSelectedTalents = SelectedTalents.Cast<TalentViewModel>().ToList();
+            int?[] selectedTalentsID = new int?[tmpSelectedTalents.Count];
+            for (int i = 0; i < SelectedTalents.Count; i++)
+            {
+                selectedTalentsID[i] = tmpSelectedTalents[i].ID;
+            }
+            
+            foreach (var ability in Abilities)
+            {
+                ability.LoadEffects(selectedTalentsID);
+            }
+        } 
 
         public string Name
         {

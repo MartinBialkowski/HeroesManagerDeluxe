@@ -118,12 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HeroDetailCommand" xml:space="preserve">
-    <value>HeroDetailCommand</value>
+    <value>Hero Detail Command</value>
   </data>
   <data name="Name_HeroesListViewModel" xml:space="preserve">
     <value>Heroes</value>
   </data>
+  <data name="SaveBuild" xml:space="preserve">
+    <value>Save Build</value>
+  </data>
   <data name="SearchCommand" xml:space="preserve">
-    <value>SearchCommand</value>
+    <value>Search Command</value>
+  </data>
+  <data name="UpdateTalents" xml:space="preserve">
+    <value>Update</value>
   </data>
 </root>
