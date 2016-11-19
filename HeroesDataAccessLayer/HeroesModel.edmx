@@ -20,12 +20,12 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ability_id" Type="int" Nullable="false" />
           <Property Name="effect_id" Type="int" Nullable="false" />
           <Property Name="talent_id" Type="int" />
           <Property Name="value" Type="real" Nullable="false" />
           <Property Name="time" Type="real" Nullable="false" />
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="talented_value" Type="real" Nullable="false" />
           <Property Name="talented_time" Type="real" Nullable="false" />
         </EntityType>
@@ -48,6 +48,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="hero_id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -63,6 +64,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="helper" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Hero">
           <Key>
@@ -195,6 +197,18 @@
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Ability">
+              <PropertyRef Name="hero_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Build_Hero">
+          <End Role="Hero" Type="Self.Hero" Multiplicity="1" />
+          <End Role="Build" Type="Self.Build" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hero">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Build">
               <PropertyRef Name="hero_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -338,6 +352,10 @@
             <End Role="Hero" EntitySet="Hero" />
             <End Role="Ability" EntitySet="Ability" />
           </AssociationSet>
+          <AssociationSet Name="FK_Build_Hero" Association="Self.FK_Build_Hero">
+            <End Role="Hero" EntitySet="Hero" />
+            <End Role="Build" EntitySet="Build" />
+          </AssociationSet>
           <AssociationSet Name="FK_Comment_Hero" Association="Self.FK_Comment_Hero">
             <End Role="Hero" EntitySet="Hero" />
             <End Role="Comment" EntitySet="Comment" />
@@ -441,6 +459,10 @@
             <End Role="Talent" EntitySet="Talent" />
             <End Role="Build" EntitySet="Build" />
           </AssociationSet>
+          <AssociationSet Name="FK_Build_Hero" Association="HeroesDBModel.FK_Build_Hero">
+            <End Role="Hero" EntitySet="Hero" />
+            <End Role="Build" EntitySet="Build" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Ability">
           <Key>
@@ -492,6 +514,8 @@
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Talent" Relationship="HeroesDBModel.Talent_Build" FromRole="Build" ToRole="Talent" />
+          <Property Name="hero_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Hero" Relationship="HeroesDBModel.FK_Build_Hero" FromRole="Build" ToRole="Hero" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -509,6 +533,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ability_Effect" Relationship="HeroesDBModel.FK_Ability_Effect_Effect" FromRole="Effect" ToRole="Ability_Effect" />
+          <Property Name="helper" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Hero">
           <Key>
@@ -533,6 +558,7 @@
           <NavigationProperty Name="Universum" Relationship="HeroesDBModel.FK_Hero_Universum" FromRole="Hero" ToRole="Universum" />
           <NavigationProperty Name="Stats" Relationship="HeroesDBModel.FK_Stats_Hero" FromRole="Hero" ToRole="Stats" />
           <NavigationProperty Name="Talent" Relationship="HeroesDBModel.FK_Talent_Hero" FromRole="Hero" ToRole="Talent" />
+          <NavigationProperty Name="Build" Relationship="HeroesDBModel.FK_Build_Hero" FromRole="Hero" ToRole="Build" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -740,6 +766,18 @@
           <End Type="HeroesDBModel.Talent" Role="Talent" Multiplicity="*" />
           <End Type="HeroesDBModel.Build" Role="Build" Multiplicity="*" />
         </Association>
+        <Association Name="FK_Build_Hero">
+          <End Type="HeroesDBModel.Hero" Role="Hero" Multiplicity="1" />
+          <End Type="HeroesDBModel.Build" Role="Build" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hero">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Build">
+              <PropertyRef Name="hero_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -788,6 +826,7 @@
           <EntitySetMapping Name="Build">
             <EntityTypeMapping TypeName="HeroesDBModel.Build">
               <MappingFragment StoreEntitySet="Build">
+                <ScalarProperty Name="hero_id" ColumnName="hero_id" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -806,6 +845,7 @@
           <EntitySetMapping Name="Effect">
             <EntityTypeMapping TypeName="HeroesDBModel.Effect">
               <MappingFragment StoreEntitySet="Effect">
+                <ScalarProperty Name="helper" ColumnName="helper" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

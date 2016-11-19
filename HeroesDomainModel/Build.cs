@@ -22,7 +22,9 @@ namespace HeroesDomainModel
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
+        public int hero_id { get; set; }
     
         public virtual ICollection<Talent> Talent { get; set; }
+        public virtual Hero Hero { get; set; }
     }
 }

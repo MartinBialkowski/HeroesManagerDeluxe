@@ -20,6 +20,7 @@ namespace HeroesDomainModel
             this.Comment = new HashSet<Comment>();
             this.Stats = new HashSet<Stats>();
             this.Talent = new HashSet<Talent>();
+            this.Build = new HashSet<Build>();
         }
     
         public int id { get; set; }
@@ -42,5 +43,6 @@ namespace HeroesDomainModel
         public virtual Universum Universum { get; set; }
         public virtual ICollection<Stats> Stats { get; set; }
         public virtual ICollection<Talent> Talent { get; set; }
+        public virtual ICollection<Build> Build { get; set; }
     }
 }

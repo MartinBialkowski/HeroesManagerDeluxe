@@ -21,6 +21,7 @@ namespace HeroesDomainModel
     
         public int id { get; set; }
         public string name { get; set; }
+        public string helper { get; set; }
     
         public virtual ICollection<Ability_Effect> Ability_Effect { get; set; }
     }

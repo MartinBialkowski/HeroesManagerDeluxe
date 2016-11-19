@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cfee9ed310264d1c8f5126bd2b6f410c" Name="Diagram1">
+      <Diagram DiagramId="cfee9ed310264d1c8f5126bd2b6f410c" Name="Diagram1" ZoomLevel="95">
         <EntityTypeShape EntityType="HeroesDBModel.Ability" Width="1.5" PointX="5.25" PointY="12.375" />
         <EntityTypeShape EntityType="HeroesDBModel.Ability_Effect" Width="1.5" PointX="7.5" PointY="12.5" />
         <EntityTypeShape EntityType="HeroesDBModel.Average_Stats" Width="1.5" PointX="3" PointY="2.75" />
@@ -30,6 +30,7 @@
         <AssociationConnector Association="HeroesDBModel.FK_Talent_Hero" />
         <AssociationConnector Association="HeroesDBModel.FK_Stats_User" />
         <AssociationConnector Association="HeroesDBModel.Talent_Build" />
+        <AssociationConnector Association="HeroesDBModel.FK_Build_Hero" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
