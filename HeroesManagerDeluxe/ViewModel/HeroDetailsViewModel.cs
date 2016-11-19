@@ -16,12 +16,13 @@ namespace HeroesManagerDeluxe.ViewModel
     public class HeroDetailsViewModel : WorkspaceViewModel
     {
         private Hero hero;
-        private HeroesDAO hDAO;
+        private readonly BuildDAO bDAO;
+        //private readonly HeroesDAO hDAO;
         public ObservableCollection<AbilityViewModel> Abilities { get; private set; }
         public ObservableCollection<TalentViewModel> Talents { get; private set; }
         public BuildViewModel Build { get; private set; }
         public CommandViewModel UpdateCommand { get; private set; }
-        public CommandViewModel SaveBuildCommand { get; private set; }
+        public CommandViewModel CreateBuildCommand { get; private set; }
         public IList SelectedTalents { get; set; }
 
         /// <summary>
@@ -29,17 +30,19 @@ namespace HeroesManagerDeluxe.ViewModel
         /// </summary>
         /// <param name="hero">Entity object</param>
         /// <param name="hDAO">Data Access Object</param>
-        public HeroDetailsViewModel(Hero hero, HeroesDAO hDAO)
+        /// <param name="bDAO">Data Access Object</param>
+        public HeroDetailsViewModel(Hero hero, HeroesDAO hDAO, BuildDAO bDAO)
         {
             this.hero = hero;
-            this.hDAO = hDAO;
+            //this.hDAO = hDAO;
+            this.bDAO = bDAO;
 
             base.DisplayName = hero.name;
 
             UpdateCommand = new CommandViewModel(Resources.UpdateTalents,
                 new RelayCommand(param => UpdateTalents()));
-            SaveBuildCommand = new CommandViewModel(Resources.SaveBuild,
-                new RelayCommand(param => SaveBuild()));
+            CreateBuildCommand = new CommandViewModel(Resources.SaveBuild,
+                new RelayCommand(param => CreateBuild()));
         }
 
         /// <summary>
@@ -62,11 +65,10 @@ namespace HeroesManagerDeluxe.ViewModel
             Talents = new ObservableCollection<TalentViewModel>(all);
         }
 
-        private void SaveBuild()
+        private void CreateBuild()
         {
-            //NEXT Create BuildViewModel, view and tab(messenger) for it which contains selected talents
-            //and some comments about it from user.
-            BuildViewModel build = new BuildViewModel(SelectedTalents);
+            UpdateTalents();
+            BuildViewModel build = new BuildViewModel(SelectedTalents, bDAO);
             DisplayWorkspaceMessage message = new DisplayWorkspaceMessage(build);
             Messenger.Default.Send<DisplayWorkspaceMessage>(message);
         }

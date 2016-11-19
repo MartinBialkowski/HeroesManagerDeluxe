@@ -14,6 +14,7 @@ namespace HeroesManagerDeluxe.ViewModel
 {
     public class HeroesListViewModel : WorkspaceViewModel
     {
+        //TODO list of build next to list of heroes, selecting hero updates list of builds, there user can choose show hero or show build
         public ObservableCollection<HeroDetailsViewModel> Heroes { get; private set; }
         public HeroDetailsViewModel SelectedHero { get; set; }
         public CollectionView HeroesCollectionView { get; private set; }
@@ -21,14 +22,16 @@ namespace HeroesManagerDeluxe.ViewModel
         public CommandViewModel SearchCommand { get; private set; }
         public CommandViewModel ShowDetailCommand { get; private set; }
         private readonly HeroesDAO hDAO;
+        private readonly BuildDAO bDAO;
 
         /// <summary>
         /// c-tor
         /// </summary>
         /// <param name="hDAO">Hero Data Access Object</param>
-        public HeroesListViewModel(HeroesDAO hDAO)
+        public HeroesListViewModel(HeroesDAO hDAO, BuildDAO bDAO)
         {
             this.hDAO = hDAO;
+            this.bDAO = bDAO;
             base.DisplayName = Resources.Name_HeroesListViewModel;
             LoadHeroes();
 
@@ -44,7 +47,7 @@ namespace HeroesManagerDeluxe.ViewModel
         private void LoadHeroes()
         {
             List<HeroDetailsViewModel> all = (from hero in hDAO.GetAll()
-                                                  select new HeroDetailsViewModel(hero, hDAO)).ToList();
+                                                  select new HeroDetailsViewModel(hero, hDAO, bDAO)).ToList();
             Heroes = new ObservableCollection<HeroDetailsViewModel>(all);
             HeroesCollectionView = (CollectionView)CollectionViewSource.GetDefaultView(Heroes);
             HeroesCollectionView.Filter = HeroesFilter;

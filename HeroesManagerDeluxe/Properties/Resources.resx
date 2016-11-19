@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CreateBuild" xml:space="preserve">
+    <value>Create Build</value>
+  </data>
   <data name="HeroDetailCommand" xml:space="preserve">
     <value>Hero Detail Command</value>
+  </data>
+  <data name="Name_BuildViewModel" xml:space="preserve">
+    <value>Build</value>
   </data>
   <data name="Name_HeroesListViewModel" xml:space="preserve">
     <value>Heroes</value>

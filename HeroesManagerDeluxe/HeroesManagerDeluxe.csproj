@@ -102,6 +102,9 @@
     <Compile Include="ViewModel\TalentViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WorkspaceViewModel.cs" />
+    <Compile Include="View\BuildView.xaml.cs">
+      <DependentUpon>BuildView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\HeroDetailsView.xaml.cs">
       <DependentUpon>HeroDetailsView.xaml</DependentUpon>
     </Compile>
@@ -121,6 +124,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainWindowResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BuildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

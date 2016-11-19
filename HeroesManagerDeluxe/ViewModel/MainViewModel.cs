@@ -18,11 +18,13 @@ namespace HeroesManagerDeluxe.ViewModel
     {
         private ObservableCollection<WorkspaceViewModel> workspaces;
         readonly HeroesDAO heroesDAO;
+        readonly BuildDAO buildDAO;
 
         public MainViewModel()
         {
             heroesDAO = new HeroesDAO();
-            HeroesListViewModel workspace = new HeroesListViewModel(heroesDAO);
+            buildDAO = new BuildDAO();
+            HeroesListViewModel workspace = new HeroesListViewModel(heroesDAO, buildDAO);
             Workspaces.Add(workspace);
 
             RegisterMessage();

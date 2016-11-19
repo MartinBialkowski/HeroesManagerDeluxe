@@ -61,11 +61,29 @@ namespace HeroesManagerDeluxe.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Build.
+        /// </summary>
+        internal static string CreateBuild {
+            get {
+                return ResourceManager.GetString("CreateBuild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hero Detail Command.
         /// </summary>
         internal static string HeroDetailCommand {
             get {
                 return ResourceManager.GetString("HeroDetailCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Build.
+        /// </summary>
+        internal static string Name_BuildViewModel {
+            get {
+                return ResourceManager.GetString("Name_BuildViewModel", resourceCulture);
             }
         }
         

@@ -10,6 +10,9 @@
     <DataTemplate DataType="{x:Type vm:HeroesListViewModel}">
         <vw:HeroesListView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:BuildViewModel}">
+        <vw:BuildView/>
+    </DataTemplate>
 
 
     <!-- 

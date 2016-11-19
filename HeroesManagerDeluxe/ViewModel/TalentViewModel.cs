@@ -72,6 +72,14 @@ namespace HeroesManagerDeluxe.ViewModel
             }
         }
 
+        public int HeroId
+        {
+            get
+            {
+                return talent.hero_id;
+            }
+        }
+
         public Talent ReturnTalent()
         {
             return talent;
