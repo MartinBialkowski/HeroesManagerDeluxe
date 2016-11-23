@@ -46,7 +46,7 @@ namespace HeroesManagerDeluxe.ViewModel
         /// </summary>
         private void Setup(BuildDAO bDAO)
         {
-            base.DisplayName = Hero + " " + Resources.Name_BuildViewModel;
+            //base.DisplayName = Hero + " " + Resources.Name_BuildViewModel;
             this.bDAO = bDAO;
             CreateCommands();
         }
@@ -77,7 +77,6 @@ namespace HeroesManagerDeluxe.ViewModel
         {
             if(build.id == 0)
             {
-                build.Talent = new List<Talent>();
                 foreach (var item in SelectedTalents)
                 {
                     build.Talent.Add(item.ReturnTalent());
@@ -120,12 +119,12 @@ namespace HeroesManagerDeluxe.ViewModel
             }
         }
 
-        public string Hero
-        {
-            get
-            {
-                return build.Hero.name;
-            }
-        }
+        //public string Hero
+        //{
+        //    get
+        //    {
+        //        return build.Hero.name;
+        //    }
+        //}
     }
 }

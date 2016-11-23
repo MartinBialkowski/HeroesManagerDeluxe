@@ -20,7 +20,7 @@ namespace HeroesManagerDeluxe.ViewModel
         //private readonly HeroesDAO hDAO;
         public ObservableCollection<AbilityViewModel> Abilities { get; private set; }
         public ObservableCollection<TalentViewModel> Talents { get; private set; }
-        public BuildViewModel Build { get; private set; }
+        public ObservableCollection<BuildViewModel> Builds { get; private set; }
         public CommandViewModel UpdateCommand { get; private set; }
         public CommandViewModel CreateBuildCommand { get; private set; }
         public IList SelectedTalents { get; set; }
@@ -38,6 +38,7 @@ namespace HeroesManagerDeluxe.ViewModel
             this.bDAO = bDAO;
 
             base.DisplayName = hero.name;
+            LoadBuilds();
 
             UpdateCommand = new CommandViewModel(Resources.UpdateTalents,
                 new RelayCommand(param => UpdateTalents()));
@@ -63,6 +64,13 @@ namespace HeroesManagerDeluxe.ViewModel
             List<TalentViewModel> all = (from talent in hero.Talent
                                          select new TalentViewModel(talent)).ToList();
             Talents = new ObservableCollection<TalentViewModel>(all);
+        }
+
+        private void LoadBuilds()
+        {
+            List<BuildViewModel> all = (from build in hero.Build
+                                        select new BuildViewModel(build, bDAO)).ToList();
+            Builds = new ObservableCollection<BuildViewModel>(all);
         }
 
         private void CreateBuild()

@@ -14,8 +14,9 @@ namespace HeroesManagerDeluxe.ViewModel
 {
     public class HeroesListViewModel : WorkspaceViewModel
     {
-        //TODO list of build next to list of heroes, selecting hero updates list of builds, there user can choose show hero or show build
+        //NEXT list of build next to list of heroes, selecting hero updates list of builds, there user can choose show hero or show build
         public ObservableCollection<HeroDetailsViewModel> Heroes { get; private set; }
+        //public ObservableCollection<BuildViewModel> Builds { get; private set; }
         public HeroDetailsViewModel SelectedHero { get; set; }
         public CollectionView HeroesCollectionView { get; private set; }
         public string SearchBar { get; set; }
@@ -39,6 +40,8 @@ namespace HeroesManagerDeluxe.ViewModel
                 new RelayCommand(param => UpdateView()));
             ShowDetailCommand = new CommandViewModel(Resources.HeroDetailCommand,
                 new RelayCommand(param => ShowDetail()));
+
+            SelectedHero = Heroes.Last();
         }
 
         /// <summary>
