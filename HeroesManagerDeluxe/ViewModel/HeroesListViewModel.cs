@@ -17,13 +17,29 @@ namespace HeroesManagerDeluxe.ViewModel
         //NEXT list of build next to list of heroes, selecting hero updates list of builds, there user can choose show hero or show build
         public ObservableCollection<HeroDetailsViewModel> Heroes { get; private set; }
         //public ObservableCollection<BuildViewModel> Builds { get; private set; }
-        public HeroDetailsViewModel SelectedHero { get; set; }
         public CollectionView HeroesCollectionView { get; private set; }
         public string SearchBar { get; set; }
         public CommandViewModel SearchCommand { get; private set; }
         public CommandViewModel ShowDetailCommand { get; private set; }
         private readonly HeroesDAO hDAO;
         private readonly BuildDAO bDAO;
+        private HeroDetailsViewModel selectedHero;
+        public HeroDetailsViewModel SelectedHero
+        {
+            get
+            {
+                return selectedHero;
+            }
+            set
+            {
+                if(value != selectedHero)
+                {
+                    selectedHero = value;
+
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// c-tor
@@ -41,7 +57,7 @@ namespace HeroesManagerDeluxe.ViewModel
             ShowDetailCommand = new CommandViewModel(Resources.HeroDetailCommand,
                 new RelayCommand(param => ShowDetail()));
 
-            SelectedHero = Heroes.Last();
+            SelectedHero = Heroes.First();
         }
 
         /// <summary>
