@@ -13,6 +13,8 @@ namespace HeroesManagerDeluxe.ViewModel
 {
     public class BuildViewModel : WorkspaceViewModel
     {
+        //FINALLY Wrapper around title and description of talents, so its looks like button, like 
+        //in sudoku game application
         private Build build;
         private BuildDAO bDAO;
         public ObservableCollection<TalentViewModel> SelectedTalents { get; private set; }
@@ -66,7 +68,7 @@ namespace HeroesManagerDeluxe.ViewModel
         /// </summary>
         private void CreateCommands()
         {
-            SaveCommand = new CommandViewModel(Resources.SaveBuild,
+            SaveCommand = new CommandViewModel(Resources.Command_SaveBuild,
                 new RelayCommand(param => SaveBuild()));
         }
 

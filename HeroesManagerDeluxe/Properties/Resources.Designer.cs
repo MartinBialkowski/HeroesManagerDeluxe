@@ -61,20 +61,56 @@ namespace HeroesManagerDeluxe.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Build.
+        ///   Looks up a localized string similar to Build Details.
         /// </summary>
-        internal static string CreateBuild {
+        internal static string Command_BuildDetail {
             get {
-                return ResourceManager.GetString("CreateBuild", resourceCulture);
+                return ResourceManager.GetString("Command_BuildDetail", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hero Detail Command.
+        ///   Looks up a localized string similar to Create Build.
         /// </summary>
-        internal static string HeroDetailCommand {
+        internal static string Command_CreateBuild {
             get {
-                return ResourceManager.GetString("HeroDetailCommand", resourceCulture);
+                return ResourceManager.GetString("Command_CreateBuild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hero Details.
+        /// </summary>
+        internal static string Command_HeroDetail {
+            get {
+                return ResourceManager.GetString("Command_HeroDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Build.
+        /// </summary>
+        internal static string Command_SaveBuild {
+            get {
+                return ResourceManager.GetString("Command_SaveBuild", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Command.
+        /// </summary>
+        internal static string Command_Search {
+            get {
+                return ResourceManager.GetString("Command_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        internal static string Command_UpdateTalents {
+            get {
+                return ResourceManager.GetString("Command_UpdateTalents", resourceCulture);
             }
         }
         
@@ -93,33 +129,6 @@ namespace HeroesManagerDeluxe.Properties {
         internal static string Name_HeroesListViewModel {
             get {
                 return ResourceManager.GetString("Name_HeroesListViewModel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save Build.
-        /// </summary>
-        internal static string SaveBuild {
-            get {
-                return ResourceManager.GetString("SaveBuild", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Search Command.
-        /// </summary>
-        internal static string SearchCommand {
-            get {
-                return ResourceManager.GetString("SearchCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update.
-        /// </summary>
-        internal static string UpdateTalents {
-            get {
-                return ResourceManager.GetString("UpdateTalents", resourceCulture);
             }
         }
     }

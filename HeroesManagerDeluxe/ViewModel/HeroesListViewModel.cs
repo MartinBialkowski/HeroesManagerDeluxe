@@ -14,15 +14,16 @@ namespace HeroesManagerDeluxe.ViewModel
 {
     public class HeroesListViewModel : WorkspaceViewModel
     {
-        //NEXT list of build next to list of heroes, selecting hero updates list of builds, there user can choose show hero or show build
+        private readonly HeroesDAO hDAO;
+        private readonly BuildDAO bDAO;
         public ObservableCollection<HeroDetailsViewModel> Heroes { get; private set; }
         //public ObservableCollection<BuildViewModel> Builds { get; private set; }
         public CollectionView HeroesCollectionView { get; private set; }
         public string SearchBar { get; set; }
         public CommandViewModel SearchCommand { get; private set; }
         public CommandViewModel ShowDetailCommand { get; private set; }
-        private readonly HeroesDAO hDAO;
-        private readonly BuildDAO bDAO;
+        public CommandViewModel ShowBuildCommand { get; private set; }
+        public BuildViewModel SelectedBuild { get; set; }
         private HeroDetailsViewModel selectedHero;
         public HeroDetailsViewModel SelectedHero
         {
@@ -52,12 +53,18 @@ namespace HeroesManagerDeluxe.ViewModel
             base.DisplayName = Resources.Name_HeroesListViewModel;
             LoadHeroes();
 
-            SearchCommand = new CommandViewModel(Resources.SearchCommand,
-                new RelayCommand(param => UpdateView()));
-            ShowDetailCommand = new CommandViewModel(Resources.HeroDetailCommand,
-                new RelayCommand(param => ShowDetail()));
-
+            CreateCommands();
             SelectedHero = Heroes.First();
+        }
+
+        private void CreateCommands()
+        {
+            SearchCommand = new CommandViewModel(Resources.Command_Search,
+                new RelayCommand(param => UpdateView()));
+            ShowDetailCommand = new CommandViewModel(Resources.Command_HeroDetail,
+                new RelayCommand(param => ShowDetail()));
+            ShowBuildCommand = new CommandViewModel(Resources.Command_BuildDetail,
+                new RelayCommand(param => ShowBuildDetail()));
         }
 
         /// <summary>
@@ -73,14 +80,31 @@ namespace HeroesManagerDeluxe.ViewModel
         }
 
         /// <summary>
-        /// Send message via Galasoft.Messenger informing MainViewModel that user clicked
-        /// Details button i.e. MainViewModel have to display new workspace.
+        /// Show details of selected hero
         /// </summary>
         private void ShowDetail()
         {
             SelectedHero.LoadAbilities();
             SelectedHero.LoadTalents();
-            DisplayWorkspaceMessage message = new DisplayWorkspaceMessage(SelectedHero);
+            SendMessage(SelectedHero);
+        }
+
+        /// <summary>
+        /// Show selected build
+        /// </summary>
+        private void ShowBuildDetail()
+        {
+            SendMessage(SelectedBuild);
+        }
+
+        /// <summary>
+        /// Send message via Galasoft.Messenger informing MainViewModel that user clicked
+        /// button i.e. MainViewModel have to display new workspace.
+        /// </summary>
+        /// <param name="workspace">Workspace do be displayed</param>
+        private void SendMessage(WorkspaceViewModel workspace)
+        {
+            DisplayWorkspaceMessage message = new DisplayWorkspaceMessage(workspace);
             Messenger.Default.Send<DisplayWorkspaceMessage>(message);
         }
 

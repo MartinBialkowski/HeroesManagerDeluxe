@@ -40,9 +40,10 @@ namespace HeroesManagerDeluxe.ViewModel
             base.DisplayName = hero.name;
             LoadBuilds();
 
-            UpdateCommand = new CommandViewModel(Resources.UpdateTalents,
+            Level = 1;
+            UpdateCommand = new CommandViewModel(Resources.Command_UpdateTalents,
                 new RelayCommand(param => UpdateTalents()));
-            CreateBuildCommand = new CommandViewModel(Resources.SaveBuild,
+            CreateBuildCommand = new CommandViewModel(Resources.Command_SaveBuild,
                 new RelayCommand(param => CreateBuild()));
         }
 
@@ -94,7 +95,14 @@ namespace HeroesManagerDeluxe.ViewModel
             {
                 ability.LoadEffects(selectedTalentsID);
             }
-        } 
+        }
+
+        private void CalculateHeroStatistics()
+        {
+            HP = (int)Math.Round(hero.base_hp + Level * hero.hp_coefficient);
+            Energy = (int)Math.Round(hero.base_energy + Level * hero.energy_coefficient);
+            AutoAttackDamage = hero.base_attack_dmg + Level * hero.attack_dmg_coefficient;
+        }
 
         public string Name
         {
@@ -130,27 +138,48 @@ namespace HeroesManagerDeluxe.ViewModel
             }
         }
 
+        private int hp;
         public int HP
         {
             get
             {
-                return (int)Math.Round(hero.base_hp + Level * hero.hp_coefficient);
+                return hp;
+            }
+            set
+            {
+                hp = value;
+
+                OnPropertyChanged();
             }
         }
 
+        private int energy;
         public int Energy
         {
             get
             {
-                return (int)Math.Round(hero.base_energy + Level * hero.energy_coefficient);
+                return energy;
+            }
+            set
+            {
+                energy = value;
+
+                OnPropertyChanged();
             }
         }
 
+        public int autoAttackDamage;
         public int AutoAttackDamage
         {
             get
             {
-                return hero.base_attack_dmg + Level * hero.attack_dmg_coefficient;
+                return autoAttackDamage;
+            }
+            set
+            {
+                autoAttackDamage = value;
+
+                OnPropertyChanged();
             }
         }
 
@@ -187,6 +216,22 @@ namespace HeroesManagerDeluxe.ViewModel
             }
         }
 
-        public int Level { get; set; }
+        private int level;
+        public int Level
+        {
+            get
+            {
+                return level;
+            }
+            set 
+            {
+                if(value != level)
+                {
+                    level = value;
+                    CalculateHeroStatistics();
+                    OnPropertyChanged();
+                }
+            }
+        }
     }
 }
