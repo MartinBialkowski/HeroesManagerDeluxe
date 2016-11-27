@@ -51,13 +51,14 @@ namespace HeroesManagerDeluxe.ViewModel
         {
             Messenger.Default.Register<DisplayWorkspaceMessage>(this, (msg) =>
             {
-                //TODO ask about it. Adding same workspace
-                //1. Easy to do  let only 1 HeroDetail at once
-                //2. Hard search through list find every HeroDetail, then compare
-                //theirs heroName with msg.workspace.heroName
-                //right now user can adds multiply tabs of Abathur or other heroes
-                Workspaces.Add(msg.workspace);
-                SetActiveWorkspace(msg.workspace);
+                var workspace = Workspaces
+                    .FirstOrDefault(w => w.DisplayName == msg.workspace.DisplayName);
+                if(workspace == null)
+                {
+                    workspace = msg.workspace;
+                    Workspaces.Add(workspace);
+                }
+                SetActiveWorkspace(workspace);
             });
         }
 
