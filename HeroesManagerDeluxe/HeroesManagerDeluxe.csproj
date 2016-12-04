@@ -99,7 +99,9 @@
     <Compile Include="ViewModel\HeroDetailsViewModel.cs" />
     <Compile Include="ViewModel\HeroesListViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\StatsViewModel.cs" />
     <Compile Include="ViewModel\TalentViewModel.cs" />
+    <Compile Include="ViewModel\UserViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WorkspaceViewModel.cs" />
     <Compile Include="View\BuildView.xaml.cs">
