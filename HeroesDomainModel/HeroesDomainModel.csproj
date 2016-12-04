@@ -60,9 +60,6 @@
     <Compile Include="Build.cs">
       <DependentUpon>HeroesModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Comment.cs">
-      <DependentUpon>HeroesModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Effect.cs">
       <DependentUpon>HeroesModel.tt</DependentUpon>
     </Compile>
@@ -75,6 +72,9 @@
       <DependentUpon>HeroesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Replay.cs">
+      <DependentUpon>HeroesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Role.cs">
       <DependentUpon>HeroesModel.tt</DependentUpon>
     </Compile>

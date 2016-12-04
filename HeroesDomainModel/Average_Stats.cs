@@ -20,12 +20,19 @@ namespace HeroesDomainModel
         }
     
         public int id { get; set; }
+        public int hero_id { get; set; }
         public float average_hero_damage { get; set; }
         public float average_siege_damage { get; set; }
-        public float average_role { get; set; }
+        public float average_healing_done { get; set; }
         public float average_xp_contribution { get; set; }
+        public float average_damage_taken { get; set; }
+        public float average_takedowns { get; set; }
+        public float average_kills { get; set; }
+        public float average_deaths { get; set; }
+        public int higest_kill_streak { get; set; }
+        public int times_awarded { get; set; }
+        public int times_mvp { get; set; }
         public int number_of_games { get; set; }
-        public int hero_id { get; set; }
     
         public virtual ICollection<Stats> Stats { get; set; }
     }

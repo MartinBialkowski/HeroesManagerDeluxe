@@ -28,16 +28,16 @@ namespace HeroesDataAccessLayer
     
         public virtual DbSet<Ability> Ability { get; set; }
         public virtual DbSet<Ability_Effect> Ability_Effect { get; set; }
-        public virtual DbSet<Average_Stats> Average_Stats { get; set; }
         public virtual DbSet<Build> Build { get; set; }
-        public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Effect> Effect { get; set; }
         public virtual DbSet<Hero> Hero { get; set; }
         public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<Stats> Stats { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Talent> Talent { get; set; }
         public virtual DbSet<Universum> Universum { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Replay> Replay { get; set; }
+        public virtual DbSet<Average_Stats> Average_Stats { get; set; }
+        public virtual DbSet<Stats> Stats { get; set; }
     }
 }

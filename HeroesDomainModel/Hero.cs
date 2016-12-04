@@ -17,10 +17,9 @@ namespace HeroesDomainModel
         public Hero()
         {
             this.Ability = new HashSet<Ability>();
-            this.Comment = new HashSet<Comment>();
-            this.Stats = new HashSet<Stats>();
             this.Talent = new HashSet<Talent>();
             this.Build = new HashSet<Build>();
+            this.Stats = new HashSet<Stats>();
         }
     
         public int id { get; set; }
@@ -38,11 +37,10 @@ namespace HeroesDomainModel
         public bool owned { get; set; }
     
         public virtual ICollection<Ability> Ability { get; set; }
-        public virtual ICollection<Comment> Comment { get; set; }
         public virtual Role Role { get; set; }
         public virtual Universum Universum { get; set; }
-        public virtual ICollection<Stats> Stats { get; set; }
         public virtual ICollection<Talent> Talent { get; set; }
         public virtual ICollection<Build> Build { get; set; }
+        public virtual ICollection<Stats> Stats { get; set; }
     }
 }

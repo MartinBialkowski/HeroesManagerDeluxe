@@ -14,22 +14,31 @@ namespace HeroesDomainModel
     
     public partial class Stats
     {
+        public Stats()
+        {
+            this.Replay = new HashSet<Replay>();
+        }
+    
         public int id { get; set; }
         public int average_stats_id { get; set; }
         public int user_id { get; set; }
         public int hero_id { get; set; }
-        public int hero_damage { get; set; }
-        public int siege_damage { get; set; }
-        public int role { get; set; }
-        public int xp_contribution { get; set; }
         public float player_average_hero_damage { get; set; }
         public float player_average_siege_damage { get; set; }
-        public float player_average_role { get; set; }
+        public float player_average_healing_done { get; set; }
         public float player_average_xp_contribution { get; set; }
+        public float player_average_damage_taken { get; set; }
+        public float player_average_takedowns { get; set; }
+        public float player_average_kills { get; set; }
+        public float player_average_deaths { get; set; }
+        public int player_higest_kill_streak { get; set; }
+        public int times_awarded { get; set; }
+        public int times_mvp { get; set; }
         public int number_of_games { get; set; }
     
         public virtual Average_Stats Average_Stats { get; set; }
         public virtual Hero Hero { get; set; }
+        public virtual ICollection<Replay> Replay { get; set; }
         public virtual User User { get; set; }
     }
 }
