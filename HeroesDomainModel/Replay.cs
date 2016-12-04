@@ -12,12 +12,12 @@ namespace HeroesDomainModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class Replay
     {
-        public string comment1 { get; set; }
-        public int hero_id { get; set; }
         public int id { get; set; }
+        public int replay1 { get; set; }
+        public int stats_id { get; set; }
     
-        public virtual Hero Hero { get; set; }
+        public virtual Stats Stats { get; set; }
     }
 }
