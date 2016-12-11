@@ -13,7 +13,12 @@
     <DataTemplate DataType="{x:Type vm:BuildViewModel}">
         <vw:BuildView/>
     </DataTemplate>
-
+    <DataTemplate DataType="{x:Type vm:StatsViewModel}">
+        <vw:StatsView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:StatsListViewModel}">
+        <vw:StatsListView/>
+    </DataTemplate>
 
     <!-- 
     This style configures both of the main content areas in the main window.

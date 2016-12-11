@@ -79,6 +79,15 @@ namespace HeroesManagerDeluxe.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dialog Service.
+        /// </summary>
+        internal static string Command_Dialog {
+            get {
+                return ResourceManager.GetString("Command_Dialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hero Details.
         /// </summary>
         internal static string Command_HeroDetail {
@@ -102,6 +111,15 @@ namespace HeroesManagerDeluxe.Properties {
         internal static string Command_Search {
             get {
                 return ResourceManager.GetString("Command_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stats Details.
+        /// </summary>
+        internal static string Command_StatsDetail {
+            get {
+                return ResourceManager.GetString("Command_StatsDetail", resourceCulture);
             }
         }
         

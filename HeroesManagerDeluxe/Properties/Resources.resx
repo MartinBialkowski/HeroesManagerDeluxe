@@ -123,6 +123,9 @@
   <data name="Command_CreateBuild" xml:space="preserve">
     <value>Create Build</value>
   </data>
+  <data name="Command_Dialog" xml:space="preserve">
+    <value>Dialog Service</value>
+  </data>
   <data name="Command_HeroDetail" xml:space="preserve">
     <value>Hero Details</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="Command_Search" xml:space="preserve">
     <value>Search Command</value>
+  </data>
+  <data name="Command_StatsDetail" xml:space="preserve">
+    <value>Stats Details</value>
   </data>
   <data name="Command_UpdateTalents" xml:space="preserve">
     <value>Update</value>

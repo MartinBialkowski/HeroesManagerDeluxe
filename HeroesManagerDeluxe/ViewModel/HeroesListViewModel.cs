@@ -17,7 +17,6 @@ namespace HeroesManagerDeluxe.ViewModel
         private readonly HeroesDAO hDAO;
         private readonly BuildDAO bDAO;
         public ObservableCollection<HeroDetailsViewModel> Heroes { get; private set; }
-        //public ObservableCollection<BuildViewModel> Builds { get; private set; }
         public CollectionView HeroesCollectionView { get; private set; }
         public string SearchBar { get; set; }
         public CommandViewModel SearchCommand { get; private set; }

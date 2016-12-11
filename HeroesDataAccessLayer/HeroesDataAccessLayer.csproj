@@ -49,9 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection\DBConnection.cs" />
+    <Compile Include="DAO\AverageStatsDAO.cs" />
     <Compile Include="DAO\BuildDAO.cs" />
     <Compile Include="DAO\DAO.cs" />
     <Compile Include="DAO\HeroesDAO.cs" />
+    <Compile Include="DAO\StatsDAO.cs" />
     <Compile Include="HeroesModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

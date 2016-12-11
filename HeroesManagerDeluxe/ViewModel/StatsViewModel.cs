@@ -11,13 +11,27 @@ namespace HeroesManagerDeluxe.ViewModel
     {
         //NEXT add average stats view model itd
         private Stats stats;
-        //Average Stats;
+        public AverageStatsViewModel AverageStats { get; set; }
+
+        public StatsViewModel(Stats stats, Average_Stats averageStats)
+        {
+            this.stats = stats;
+            this.AverageStats = new AverageStatsViewModel(averageStats);
+        }
 
         public string User
         {
             get
             {
                 return stats.User.name;
+            }
+        }
+
+        public Hero HeroObject
+        {
+            get
+            {
+                return stats.Hero;
             }
         }
 
@@ -182,7 +196,7 @@ namespace HeroesManagerDeluxe.ViewModel
             }
         }
 
-        public int HigestKillSteak
+        public int HigestKillStreak
         {
             get
             {

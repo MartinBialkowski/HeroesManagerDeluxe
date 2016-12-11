@@ -19,12 +19,17 @@ namespace HeroesManagerDeluxe.ViewModel
         private ObservableCollection<WorkspaceViewModel> workspaces;
         readonly HeroesDAO heroesDAO;
         readonly BuildDAO buildDAO;
+        readonly StatsDAO statsDAO;
+        readonly AverageStatsDAO averageStatsDAO;
 
         public MainViewModel()
         {
             heroesDAO = new HeroesDAO();
             buildDAO = new BuildDAO();
-            HeroesListViewModel workspace = new HeroesListViewModel(heroesDAO, buildDAO);
+            statsDAO = new StatsDAO();
+            averageStatsDAO = new AverageStatsDAO();
+            //HeroesListViewModel workspace = new HeroesListViewModel(heroesDAO, buildDAO);
+            StatsListViewModel workspace = new StatsListViewModel(statsDAO, averageStatsDAO);
             Workspaces.Add(workspace);
 
             RegisterMessage();
@@ -49,6 +54,7 @@ namespace HeroesManagerDeluxe.ViewModel
 
         private void RegisterMessage()
         {
+            //Finally Double click on empty field throws error tip click next to test build => show build without selecting build
             Messenger.Default.Register<DisplayWorkspaceMessage>(this, (msg) =>
             {
                 var workspace = Workspaces
