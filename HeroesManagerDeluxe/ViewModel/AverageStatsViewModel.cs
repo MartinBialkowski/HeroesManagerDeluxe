@@ -16,7 +16,7 @@ namespace HeroesManagerDeluxe.ViewModel
             this.averageStats = averageStats;
         }
 
-        public int GameCount
+        public int GamesCount
         {
             get
             {
@@ -169,7 +169,7 @@ namespace HeroesManagerDeluxe.ViewModel
             }
         }
 
-        public int HigestKillSteak
+        public int HigestKillStreak
         {
             get
             {

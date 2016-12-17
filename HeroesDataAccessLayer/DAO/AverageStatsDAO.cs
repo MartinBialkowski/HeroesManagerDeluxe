@@ -16,7 +16,7 @@ namespace HeroesDataAccessLayer
         /// </summary>
         /// <param name="id">identificator of hero</param>
         /// <returns>First stats for specified hero</returns>
-        public Average_Stats GetStatsForSpecifiedstats(int id)
+        public Average_Stats GetStatsForSpecifiedHero(int id)
         {
             return context.Average_Stats.FirstOrDefault(a => a.hero_id == id);
         }

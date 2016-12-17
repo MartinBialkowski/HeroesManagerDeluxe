@@ -29,7 +29,7 @@ namespace HeroesManagerDeluxe.ViewModel
             statsDAO = new StatsDAO();
             averageStatsDAO = new AverageStatsDAO();
             //HeroesListViewModel workspace = new HeroesListViewModel(heroesDAO, buildDAO);
-            StatsListViewModel workspace = new StatsListViewModel(statsDAO, averageStatsDAO);
+            StatsListViewModel workspace = new StatsListViewModel(statsDAO, averageStatsDAO, user);
             Workspaces.Add(workspace);
 
             RegisterMessage();

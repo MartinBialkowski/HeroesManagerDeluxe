@@ -9,7 +9,6 @@ namespace HeroesManagerDeluxe.ViewModel
 {
     public class StatsViewModel : WorkspaceViewModel
     {
-        //NEXT add average stats view model itd
         private Stats stats;
         public AverageStatsViewModel AverageStats { get; set; }
 
